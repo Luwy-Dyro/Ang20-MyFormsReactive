@@ -2,8 +2,7 @@
 - name: Deploy to Github pages
   env:
     GITHUB_TOKEN: ${{ secrets.LW_TOKEN }}
-  run: |
-    npx angular-cli-ghpages --dir=dist/reactiveforms
+  run: npx ng deploy --base-href=/Ang20-MyFormsReactive/
 
 
 
