@@ -1,45 +1,36 @@
+name: My GitHub Pages
 
-- name: Deploy to Github pages
-  env:
-    GITHUB_TOKEN: ${{ secrets.LW_TOKEN }}
-  run: npx ng deploy --base-href=/Ang20-MyFormsReactive/
+on:
+  push:
+    branches: ["main"]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
+jobs:
+  # Build job
+  deploy:
+    runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v4
 
-# name: My GitHub Pages
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
 
-# on:
-#   push:
-#     branches: ["main"]
+      - name: Install dependencies
+        run: npm install
 
-#   # Allows you to run this workflow manually from the Actions tab
-#   workflow_dispatch:
+      - name: Build
+        run: npm run build
 
-# jobs:
-#   # Build job
-#   deploy:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v4
-
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: latest
-
-#       - name: Install dependencies
-#         run: npm install
-
-#       - name: Build
-#         run: npm run build
-
-#       - name: Deploy to Github pages
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.LW_TOKEN }}
-#         run: |
-#           npm run ng -- deploy --repo="https://github.com/Luwy-Dyro/Ang20-MyFormsReactive.git" --base-href=/Ang20-MyFormsReactive/ --name=Luwy-Dyro --email=luwy.dyro@gmail.com
+      - name: Deploy to Github pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.LW_TOKEN }}
+        run: |
+          npm run ng deploy --repo="https://github.com/Luwy-Dyro/Ang20-MyFormsReactive.git" --base-href=/Ang20-MyFormsReactive/ --name=Luwy-Dyro --email=luwy.dyro@gmail.com
 
 # name: Deploy Angular App to GitHub Pages
 
